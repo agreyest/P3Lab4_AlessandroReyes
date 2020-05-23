@@ -220,8 +220,8 @@ string Encriptar(string mensaje, int llave, bool ENCorDES){
 			
 			if(mensaje.size() < llave2){//para ver si el num de la llave es menor que la size del string
 				if(UPorDown){
-					char char_tablaASCII = "";
-					int num_tablaASCII = "";
+					char char_tablaASCII = ' ';
+					int num_tablaASCII = 0;
 					for(int i=0; i < mensaje.size(); i++){
 						char_tablaASCII = mensaje_encriptado[i];
 						num_tablaASCII = char_tablaASCII;
@@ -230,21 +230,75 @@ string Encriptar(string mensaje, int llave, bool ENCorDES){
 						mensaje_temp += char_tablaASCII;
 					}
 				}else{
-					
-				}
-				
-			}else{
-				int division = mensaje.size()/llave;//para saber cuantas veces se va a partir el mensaje
-				for(int i=0; i < division; i++){
-					char tablaASCII="";
-					int num_tablaASCII="";
-					if(UPorDown){
-						
-					}else{
-						
+					char char_tablaASCII = ' ';
+					int num_tablaASCII = 0;
+					for(int i=0; i < mensaje.size(); i++){
+						char_tablaASCII = mensaje_encriptado[i];
+						num_tablaASCII = char_tablaASCII;
+						num_tablaASCII--;
+						char_tablaASCII = num_tablaASCII;
+						mensaje_temp += char_tablaASCII;
 					}
 				}
-			}//fin del else para encriptar un
+				
+			}
+			else{//la llave es menor que el string
+				int division = mensaje.size()/llave;//para saber cuantas veces se va a partir el mensaje
+				int comienza=0;
+				int termina=llave;
+				for(int i=0; i < division; i++){
+					char char_tablaASCII;
+					int num_tablaASCII= 0;
+				
+					
+					if(UPorDown){
+						for(int j=comienza; j < termina; j++){
+							char_tablaASCII = mensaje_encriptado[j];
+							num_tablaASCII = char_tablaASCII;
+							num_tablaASCII++;
+							char_tablaASCII = num_tablaASCII;
+							mensaje_temp += char_tablaASCII;
+						}
+						
+						if(UPorDown){
+							UPorDown = false;
+						}else{
+							UPorDown = true;
+						}
+						comienza+=llave;
+						if(termina+=llave > mensaje.size()){
+							termina = mensaje.size();
+						}else{
+							termina+=llave;
+						}
+						
+					}//fin del if que va arriba
+					else{
+						for(int j=comienza; j < termina; j++){
+							char_tablaASCII = mensaje_encriptado[j];
+							num_tablaASCII = char_tablaASCII;
+							num_tablaASCII--;
+							char_tablaASCII = num_tablaASCII;
+							mensaje_temp += char_tablaASCII;
+						}
+						
+						if(UPorDown){
+							UPorDown = false;
+						}else{
+							UPorDown = true;
+						}
+						comienza+=llave;
+						if(termina+=llave > mensaje.size()){
+							termina = mensaje.size();
+						}else{
+							termina+=llave;
+						}
+						
+					}//fin del else para abajo
+					
+				}//fin del for para el split del string
+				
+			}
 			
 			llave2--;
 			
@@ -261,30 +315,92 @@ string Encriptar(string mensaje, int llave, bool ENCorDES){
 			}
 		}//fin del while
 		
-	}else{//para desencriptar
+	}
+	else{//para desencriptar
 		UPorDown = false;
 		
 		while(llave2 > 0){
-			if(mensaje.size() < llave){//para ver si el num de la llave es menor que la size del string
-				char tablaASCII="";
-				int num_tablaASCII="";
+			if(mensaje.size() < llave){//La llave es mayor a la size del string
 				if(UPorDown){
-						
+					char char_tablaASCII = ' ';
+					int num_tablaASCII = 0;
+					for(int i=0; i < mensaje.size(); i++){
+						char_tablaASCII = mensaje_encriptado[i];
+						num_tablaASCII = char_tablaASCII;
+						num_tablaASCII++;
+						char_tablaASCII = num_tablaASCII;
+						mensaje_temp += char_tablaASCII;
+					}
 				}else{
-						
-				}
-				
-			}else{
-				int division = mensaje.size()/llave;//para saber cuantas veces se va a partir el mensaje
-				for(int i=0; i < division; i++){
-					char tablaASCII="";
-					int num_tablaASCII="";
-					if(UPorDown){
-						
-					}else{
-						
+					char char_tablaASCII = ' ';
+					int num_tablaASCII = 0;
+					for(int i=0; i < mensaje.size(); i++){
+						char_tablaASCII = mensaje_encriptado[i];
+						num_tablaASCII = char_tablaASCII;
+						num_tablaASCII--;
+						char_tablaASCII = num_tablaASCII;
+						mensaje_temp += char_tablaASCII;
 					}
 				}
+				
+			}
+			else{//la llave es menor a la size dle string
+				int division = mensaje.size()/llave;//para saber cuantas veces se va a partir el mensaje
+				int comienza=0;
+				int termina=llave;
+				for(int i=0; i < division; i++){
+					char char_tablaASCII;
+					int num_tablaASCII= 0;
+				
+					
+					if(UPorDown){
+						for(int j=comienza; j < termina; j++){
+							char_tablaASCII = mensaje_encriptado[j];
+							num_tablaASCII = char_tablaASCII;
+							num_tablaASCII++;
+							char_tablaASCII = num_tablaASCII;
+							mensaje_temp += char_tablaASCII;
+						}
+						
+						if(UPorDown){
+							UPorDown = false;
+						}else{
+							UPorDown = true;
+						}
+						comienza+=llave;
+						if(termina+=llave > mensaje.size()){
+							termina = mensaje.size();
+						}else{
+							termina+=llave;
+						}
+						
+					}//fin del if que va arriba
+					else{
+						for(int j=comienza; j < termina; j++){
+							char_tablaASCII = mensaje_encriptado[j];
+							num_tablaASCII = char_tablaASCII;
+							num_tablaASCII--;
+							char_tablaASCII = num_tablaASCII;
+							mensaje_temp += char_tablaASCII;
+						}
+						
+						if(UPorDown){
+							UPorDown = false;
+						}else{
+							UPorDown = true;
+						}
+						comienza+=llave;
+						if(termina+=llave > mensaje.size()){
+							termina = mensaje.size();
+						}else{
+							termina+=llave;
+						}
+						
+					}//fin del else para abajo
+					
+				}//fin del for para el split del string
+				
+			
 			}
 			
 			llave2--;
